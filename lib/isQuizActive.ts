@@ -4,12 +4,12 @@ import { contractAddress, contractAbi } from './constants';
 
 export async function isQuizActive(): Promise<boolean> {
   try {
-    const { publicClient } = getClients();
+    const { publicClient } = await getClients();
 
     const result = await publicClient.readContract({
       address: contractAddress,
       abi: contractAbi,
-      functionName: 'isQuizActive', // ✅ pastikan ini nama fungsi di contract
+      functionName: 'isQuizActive',
     });
 
     return Boolean(result);
