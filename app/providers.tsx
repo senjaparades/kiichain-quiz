@@ -27,13 +27,12 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     setMounted(true);
   }, []);
 
-  // ⛔ Hindari render di server (SSR) karena RainbowKit butuh akses window
   if (!mounted) return null;
 
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider chains={[kiichainTestnet]} theme={darkTheme()}>
+        <RainbowKitProvider theme={darkTheme()}>
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>
