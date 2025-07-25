@@ -18,6 +18,8 @@ type Question = {
   answer: string;
 };
 
+const POINTS_PER_QUESTION = 10;
+
 export default function Quiz() {
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -31,15 +33,7 @@ export default function Quiz() {
 
   const { address, isConnected } = useAccount();
 
-  // 👉 Tambahan: bantu debug jika soal kosong
   useEffect(() => {
-    console.log('[DEBUG] rawQuestions:', rawQuestions);
-  }, []);
-
-  // 👉 Ambil soal & skor maksimum
-  useEffect(() => {
-    if (rawQuestions.length === 0) return;
-
     setShuffledQuestions(shuffleArray(rawQuestions));
 
     getMaxScorePerRound().then((score) => {
@@ -49,7 +43,6 @@ export default function Quiz() {
     });
   }, []);
 
-  // 👉 Cek apakah user sudah submit skor
   useEffect(() => {
     if (!address || !isConnected) return;
 
@@ -58,7 +51,6 @@ export default function Quiz() {
     });
   }, [address, isConnected]);
 
-  // 👉 Timer untuk tiap soal
   useEffect(() => {
     if (showResult || alreadySubmitted) return;
 
@@ -77,17 +69,7 @@ export default function Quiz() {
   }, [currentQuestion, showResult, selectedOption, alreadySubmitted]);
 
   const current = shuffledQuestions[currentQuestion];
-
-  // ✅ Tambahan validasi penting agar tidak error
-  if (!current) {
-    return (
-      <div className="text-center text-red-500 mt-10">
-        ❌ No question found. Please check your question list or try again later.
-      </div>
-    );
-  }
-
-  const totalScore = shuffledQuestions.length * 10;
+  const totalScore = shuffledQuestions.length * POINTS_PER_QUESTION;
 
   const handleOptionClick = (option: string) => {
     if (selectedOption) return;
@@ -96,7 +78,7 @@ export default function Quiz() {
   };
 
   const handleNext = async (isCorrect: boolean) => {
-    const addedScore = isCorrect ? 10 : 0;
+    const addedScore = isCorrect ? POINTS_PER_QUESTION : 0;
 
     if (currentQuestion + 1 < shuffledQuestions.length) {
       setCurrentQuestion((prev) => prev + 1);
@@ -157,6 +139,14 @@ export default function Quiz() {
     return (
       <div className="mt-6 text-center text-red-500 font-semibold">
         ❌ No questions available. Please contact admin.
+      </div>
+    );
+  }
+
+  if (!current) {
+    return (
+      <div className="text-center text-red-500 mt-10">
+        ❌ No question found. Please check your question list or try again later.
       </div>
     );
   }
