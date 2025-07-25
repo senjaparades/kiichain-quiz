@@ -8,7 +8,6 @@ export default function WalletConnect() {
   const { address, isConnected } = useAccount();
   const { data: balanceData } = useBalance({
     address,
-    watch: true,
   });
 
   const [showQuiz, setShowQuiz] = useState(false);
