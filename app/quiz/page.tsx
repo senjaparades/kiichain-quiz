@@ -84,7 +84,7 @@ export default function QuizPage() {
     if (locked || showResult || selectedAnswer !== null) return;
 
     const currentQuestion = questions[currentQuestionIndex];
-    const isCorrect = selected === currentQuestion.options[currentQuestion.answer];
+    const isCorrect = selected === currentQuestion.answer;
     const nextScore = score + (isCorrect ? 1 : 0);
     setScore(nextScore);
 
@@ -92,7 +92,7 @@ export default function QuizPage() {
 
     const feedback = currentQuestion.options.map((option) => ({
       option,
-      isCorrect: option === currentQuestion.options[currentQuestion.answer],
+      isCorrect: option === currentQuestion.answer,
     }));
     setAnswerFeedback(feedback);
 
