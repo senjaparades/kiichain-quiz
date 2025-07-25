@@ -38,21 +38,21 @@ export async function getMaxScorePerRound(): Promise<number> {
 // ✅ Aktifkan / nonaktifkan quiz (admin only)
 export async function setQuizActive(active: boolean): Promise<void> {
   const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
-  const connected = contract.connect(signer);
+  const connected = contract.connect(signer) as any;
   await connected.setQuizActive(active);
 }
 
 // ✅ Set skor maksimum per round (admin only)
 export async function setMaxScorePerRound(score: number): Promise<void> {
   const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
-  const connected = contract.connect(signer);
+  const connected = contract.connect(signer) as any;
   await connected.setMaxScorePerRound(score);
 }
 
 // ✅ Submit skor user ke smart contract
 export async function submitScoreToContract(score: number): Promise<void> {
   const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
-  const connected = contract.connect(signer);
+  const connected = contract.connect(signer) as any;
   const tx = await connected.submitScore(score);
   await tx.wait();
 }
