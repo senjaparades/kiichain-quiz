@@ -1,5 +1,5 @@
 // lib/kiichain.ts
-import { Chain } from 'wagmi';
+import type { Chain } from 'wagmi/chains';
 
 export const kiichainTestnet: Chain = {
   id: 1336,
