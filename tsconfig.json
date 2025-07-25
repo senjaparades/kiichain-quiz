@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "types": ["node", "hardhat"],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/lib/*": ["lib/*"],
+      "@/abi/*": ["abi/*"]              // ✅ Tambahan ini penting
+    }
+  },
+  "include": [
+    ".",
+    "scripts",
+    "test",
+    "typechain-types",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
