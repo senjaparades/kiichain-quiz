@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import * as dotenv from "dotenv";
-import KiiQuizJson from "../artifacts/contracts/KiiQuiz.sol/KiiQuiz.json";
+import KiiQuizJson from "../lib/abi/KiiQuiz.json";
+
 
 dotenv.config();
 
