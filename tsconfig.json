@@ -1,29 +1,37 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "outDir": "dist",
-    "types": ["node", "hardhat"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "incremental": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "plugins": [{ "name": "next" }],
+    "incremental": true,
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@/lib/*": ["lib/*"],
-      "@/abi/*": ["abi/*"]              // ✅ Tambahan ini penting
-    }
+      "@/abi/*": ["abi/*"]
+    },
+
+    "types": ["node", "hardhat", "react"],
+
+    "typeRoots": [
+      "./node_modules/@types",
+      "./typechain-types"
+    ],
+
+    "plugins": [{ "name": "next" }]
   },
+
   "include": [
     ".",
     "scripts",
@@ -31,5 +39,6 @@
     "typechain-types",
     ".next/types/**/*.ts"
   ],
+
   "exclude": ["node_modules"]
 }

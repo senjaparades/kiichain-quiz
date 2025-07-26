@@ -31,7 +31,7 @@ function Header() {
     async function checkOwner() {
       if (!address) return;
       try {
-        const provider = new ethers.JsonRpcProvider(rpcUrl);
+        const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
         const contract = new ethers.Contract(contractAddress, abi, provider);
         const owner = await contract.owner();
         setIsOwner(owner.toLowerCase() === address.toLowerCase());

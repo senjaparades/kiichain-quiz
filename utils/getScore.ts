@@ -5,7 +5,7 @@ import KiiQuizABI from '@/artifacts/contracts/KiiQuiz.sol/KiiQuiz.json';
 const contractAddress = '0x21ee9D5B2B6Bd524dE7bd8c65f17587B2Bd61117';
 const rpcUrl = process.env.NEXT_PUBLIC_KIICHAIN_RPC!;
 
-const provider = new ethers.JsonRpcProvider(rpcUrl);
+const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
 
 // Base contract instance for read-only ops
 const contract = KiiQuiz__factory.connect(contractAddress, provider);
@@ -40,21 +40,21 @@ export async function getMaxScorePerRound(): Promise<number> {
 
 // ✅ Aktifkan / nonaktifkan quiz (admin only)
 export async function setQuizActive(active: boolean): Promise<void> {
-  const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
+  const signer = await new ethers.providers.Web3Provider(window.ethereum).getSigner();
   const connected = KiiQuiz__factory.connect(contractAddress, signer); // ✅ pakai factory
   await connected.setQuizActive(active);
 }
 
 // ✅ Set skor maksimum per round (admin only)
 export async function setMaxScorePerRound(score: number): Promise<void> {
-  const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
+  const signer = await new ethers.providers.Web3Provider(window.ethereum).getSigner();
   const connected = KiiQuiz__factory.connect(contractAddress, signer); // ✅ pakai factory
   await connected.setMaxScorePerRound(score);
 }
 
 // ✅ Submit skor user ke smart contract
 export async function submitScoreToContract(score: number): Promise<void> {
-  const signer = await new ethers.BrowserProvider(window.ethereum).getSigner();
+  const signer = await new ethers.providers.Web3Provider(window.ethereum).getSigner();
   const connected = KiiQuiz__factory.connect(contractAddress, signer); // ✅ pakai factory
   const tx = await connected.submitScore(score);
   await tx.wait();

@@ -13,7 +13,7 @@ async function main() {
     throw new Error("❌ PRIVATE_KEY atau NEXT_PUBLIC_KIICHAIN_RPC tidak ditemukan di .env");
   }
 
-  const provider = new ethers.JsonRpcProvider(rpc);
+  const provider = new ethers.providers.JsonRpcProvider(rpc);
   const wallet = new ethers.Wallet(privateKey, provider);
 
   const factory = new ethers.ContractFactory(

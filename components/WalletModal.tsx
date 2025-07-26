@@ -16,12 +16,11 @@ export default function WalletConnect() {
   useEffect(() => {
     if (!hasMounted || typeof window === 'undefined' || !window.ethereum) return;
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const checkConnection = async () => {
       const accounts = await provider.listAccounts();
       if (accounts.length > 0) {
-        const addr = accounts[0].address;
+        const addr = accounts[0];
         setAccount(addr);
         fetchBalance(addr);
       }
@@ -43,9 +42,9 @@ export default function WalletConnect() {
 
   const fetchBalance = async (addr: string) => {
     if (!window.ethereum) return;
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     const balanceBigInt = await provider.getBalance(addr);
-    const ethBalance = ethers.formatEther(balanceBigInt);
+    const ethBalance = ethers.utils.formatEther(balanceBigInt);
     setBalance(parseFloat(ethBalance).toFixed(4) + ' KII');
   };
 
@@ -56,8 +55,7 @@ export default function WalletConnect() {
     }
 
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const accounts = await provider.send('eth_requestAccounts', []);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);      const accounts = await provider.send('eth_requestAccounts', []);
       const addr = accounts[0];
       setAccount(addr);
       fetchBalance(addr);

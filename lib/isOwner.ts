@@ -8,7 +8,7 @@ export default async function isOwner(address: string): Promise<boolean> {
   if (!address) return false;
 
   try {
-    const provider = new ethers.JsonRpcProvider(rpcUrl);
+    const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
     const contract = new ethers.Contract(contractAddress, abi, provider);
     const owner: string = await contract.owner();
 
